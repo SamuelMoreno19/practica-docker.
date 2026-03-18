@@ -219,3 +219,63 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 MariaDB [(none)]> 
 
+# Practica-Búsqueda de imágenes del repositorio
+Para completar la primera tarea, extraemos la imagen oficial de servidor web para nuestra infraestructura: @SamuelMoreno19 ➜ /workspaces/practica-docker. (main) $ docker pull nginx
+Using default tag: latest
+latest: Pulling from library/nginx
+Digest: sha256:dec7a90bd0973b076832dc56933fe876bc014929e14b4ec49923951405370112
+Status: Image is up to date for nginx:latest
+docker.io/library/nginx:latest
+
+En esta fase de la misión, recolectamos recursos ligeros (alpine) y robustos (ubuntu) para diversificar nuestro arsenal de contenedores: @SamuelMoreno19 ➜ /workspaces/practica-docker. (main) $ docker pull alpine
+Using default tag: latest
+latest: Pulling from library/alpine
+Digest: sha256:25109184c71bdad752c8312a8623239686a9a2071e8825f20acb8f2198c3f659
+Status: Image is up to date for alpine:latest
+docker.io/library/alpine:latest
+
+@SamuelMoreno19 ➜ /workspaces/practica-docker. (main) $ docker pull ubuntu
+Using default tag: latest
+latest: Pulling from library/ubuntu
+817807f3c64e: Already exists 
+Digest: sha256:0d39fcc8335d6d74d5502f6df2d30119ff4790ebbb60b364818d5112d9e3e932
+Status: Downloaded newer image for ubuntu:latest
+docker.io/library/ubuntu:latest
+
+El comando docker images actúa como nuestro inventario de realidad virtual, permitiéndonos ver qué herramientas tenemos disponibles localmente: @SamuelMoreno19 ➜ /workspaces/practica-docker. (main) $ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
+mariadb       latest    16a5cac03562   43 hours ago   336MB
+nginx         latest    1a1e63136420   46 hours ago   161MB
+ubuntu        latest    f794f40ddfff   3 weeks ago    78.1MB
+alpine        latest    a40c03cbb81c   7 weeks ago    8.44MB
+hello-world   latest    1b44b5a3e06a   7 months ago   10.1kB
+
+# Practica-Despliegue de batallas espaciales dockerizadas
+Para garantizar una plataforma de comunicación segura entre las naves, desplegamos un servidor Nginx que actuará como nuestro centro de control de mensajes: @SamuelMoreno19 ➜ /workspaces/practica-docker. (main) $ docker run -d -p 80:80 --name comunicaciones-flota nginx
+049d8de3c5436fe416bbbf5064e4796c86a0d8649789c884550c3ab9b793592e
+
+Podemos utilizar el comando ps para poder verificar que se este ejecutando y escuchando el puerto 80: @SamuelMoreno19 ➜ /workspaces/practica-docker. (main) $ docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED              STATUS              PORTS                                 NAMES
+049d8de3c543   nginx     "/docker-entrypoint.…"   About a minute ago   Up About a minute   0.0.0.0:80->80/tcp, [::]:80->80/tcp   comunicaciones-flota
+
+Para la transmisión ligera y segura de coordenadas tácticas, desplegamos un nodo alpine. Debido a su diseño minimalista, es el contenedor ideal para operaciones rápidas en naves de exploración: @SamuelMoreno19 ➜ /workspaces/practica-docker. (main) $ docker run -dit --name nodo-datos-alpine alpine
+23725dc5e9f32a272858c6a958eb39f7626ed281917730771c9b94c88f21c292
+
+Para que verifiquemos que todo este correcto sera el siguiente comando: @SamuelMoreno19 ➜ /workspaces/practica-docker. (main) $ docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS                                 NAMES
+23725dc5e9f3   alpine    "/bin/sh"                5 minutes ago   Up 5 minutes                                         nodo-datos-alpine
+049d8de3c543   nginx     "/docker-entrypoint.…"   8 minutes ago   Up 8 minutes   0.0.0.0:80->80/tcp, [::]:80->80/tcp   comunicaciones-flota
+
+# Practica-Docker Container Identification
+Como primer paso, generamos un reporte oficial de todos los contenedores activos en la arena, extrayendo sus identificadores, imágenes y nombres: @SamuelMoreno19 ➜ /workspaces/practica-docker. (main) $ docker ps --format "{{.ID}} {{.Image}} {{.Names}}" > containers.txt
+
+Validamos el contenido de los archivos de texto creados mediante la terminal. Estos archivos sirven como evidencia de los contenedores que estuvieron activos durante la jornada: @SamuelMoreno19 ➜ /workspaces/practica-docker. (main) $ cat containers.txt
+23725dc5e9f3 alpine nodo-datos-alpine
+049d8de3c543 nginx comunicaciones-flota
+
+Filtramos los contenedores que usan la imagen jenkins/jenkins y guardamos el report: @SamuelMoreno19 ➜ /workspaces/practica-docker. (main) $ docker ps --filter "ancestor=jenkins/jenkins" --format "table {{.ID}}\t{{.Image}}\t{{.Names}}" > container_jenkins.txt
+
+e confirma que no hay instancias de Jenkins consumiendo recursos en el entorno de pruebas actual, manteniendo el "puerto espacial" optimizado para los laboratorios de Nginx y Alpine: container_jenkins.txt: 
+CONTAINER ID   IMAGE     NAMES
+
+

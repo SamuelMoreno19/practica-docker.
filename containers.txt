@@ -1,0 +1,2 @@
+23725dc5e9f3 alpine nodo-datos-alpine
+049d8de3c543 nginx comunicaciones-flota
